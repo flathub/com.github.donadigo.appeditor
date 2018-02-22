@@ -25,14 +25,14 @@
         "--filesystem=xdg-run/dconf", "--filesystem=~/.config/dconf:ro",
         "--talk-name=ca.desrt.dconf", "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
     ],
+    "build-options": {
+        "env": {
+            "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
+            "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
+        }
+    },
     "modules": [{
             "name": "libgee",
-            "build-options": {
-                "env": {
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
-                }
-            },
             "sources": [{
                 "type": "archive",
                 "url": "https://github.com/GNOME/libgee/archive/0.20.0.tar.gz",
@@ -49,12 +49,6 @@
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release"
             ],
-            "build-options": {
-                "env": {
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-                    "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
-                }
-            },
             "sources": [{
                 "type": "archive",
                 "url": "https://github.com/elementary/granite/archive/0.5.tar.gz",
@@ -76,6 +70,21 @@
             }]
         },
         {
+            "name": "elementary-theme",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -dm755 /usr/share/runtime/share/themes/elementary/gtk-3.0",
+                "cp -aL gtk-3.22/* /usr/share/runtime/share/themes/elementary/gtk-3.0",
+                "cp -a index.theme /usr/share/runtime/share/themes/elementary"
+            ],
+            "sources": [{
+                "type": "git",
+                "url": "git://github.com/elementary/stylesheet.git",
+                "branch": "5.1.1",
+                "commit": "6a96d0f3227f15533c11e136b101ee44052eb750"
+            }]
+        },
+        {
             "name": "appeditor",
             "buildsystem": "meson",
             "config-opts": ["--buildtype=release"],
@@ -87,6 +96,10 @@
                 {
                     "type": "patch",
                     "path": "glib-fix.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "elementary-theme.patch"
                 }
             ],
             "post-install": [

@@ -1,0 +1,10 @@
+--- a/src/Application.vala	2018-02-22 20:05:02.145127488 +0100
++++ b/src/Application.vala	2018-02-22 20:04:58.786162320 +0100
+@@ -54,6 +54,7 @@
+ 
+     public static int main (string[] args) {
+         var app = new Application ();
++        Gtk.Settings.get_default().set_property("gtk-theme-name", "elementary");
+         return app.run (args);
+     }
+ 
