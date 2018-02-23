@@ -7,8 +7,9 @@
     "cleanup": [
         "/include",
         "/lib/pkgconfig",
-        "/lib/debug",
+        "/lib/girepository-1.0",
         "/share/vala",
+        "/share/gir-1.0",
         "/man",
         "*.a",
         "*.la"
