@@ -1,19 +1,11 @@
 {
     "app-id": "com.github.donadigo.appeditor",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.26",
+    "runtime-version": "3.28",
+    "base":"io.elementary.Loki.BaseApp",
+    "base-version": "stable",
     "sdk": "org.gnome.Sdk",
     "command": "appeditor-wrapper",
-    "cleanup": [
-        "/include",
-        "/lib/pkgconfig",
-        "/lib/girepository-1.0",
-        "/share/vala",
-        "/share/gir-1.0",
-        "/man",
-        "*.a",
-        "*.la"
-    ],
     "finish-args": [
         /* X11 + XShm */
         "--share=ipc",
@@ -26,36 +18,7 @@
         "--filesystem=xdg-run/dconf", "--filesystem=~/.config/dconf:ro",
         "--talk-name=ca.desrt.dconf", "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
     ],
-    "build-options": {
-        "env": {
-            "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR": "/app/share/gir-1.0",
-            "PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR": "/app/lib/girepository-1.0"
-        }
-    },
-    "modules": [{
-            "name": "libgee",
-            "sources": [{
-                "type": "archive",
-                "url": "https://github.com/GNOME/libgee/archive/0.20.0.tar.gz",
-                "sha256": "42fe6d651910cb8b720167f71c5255a1b7b1afc82fecd3f31e61f9602b3b1335"
-            }]
-        },
-        {
-            "name": "granite",
-            "buildsystem": "cmake-ninja",
-            "cleanup": [
-                "/bin/granite-demo",
-                "/share/applications/granite-demo.desktop"
-            ],
-            "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release"
-            ],
-            "sources": [{
-                "type": "archive",
-                "url": "https://github.com/elementary/granite/archive/0.5.tar.gz",
-                "sha256": "cc4905ae70fddeba3d2ded44bb642be77d419aa090251a7ab24c155b8616be06"
-            }]
-        },
+    "modules": [
         {
             "name": "wrapper",
             "buildsystem": "simple",
@@ -66,23 +29,10 @@
                 "type": "script",
                 "dest-filename": "appeditor-wrapper",
                 "commands": [
-                    "env XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share com.github.donadigo.appeditor"
+                    "export PATH=$PATH:/run/host/usr/bin",
+                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share",
+                    "com.github.donadigo.appeditor"
                 ]
-            }]
-        },
-        {
-            "name": "elementary-theme",
-            "buildsystem": "simple",
-            "build-commands": [
-                "install -dm755 /app/share/themes/elementary/gtk-3.0",
-                "cp -aL gtk-3.22/* /app/share/themes/elementary/gtk-3.0",
-                "cp -a index.theme /app/share/themes/elementary"
-            ],
-            "sources": [{
-                "type": "git",
-                "url": "git://github.com/elementary/stylesheet.git",
-                "branch": "5.1.1",
-                "commit": "6a96d0f3227f15533c11e136b101ee44052eb750"
             }]
         },
         {
@@ -91,12 +41,8 @@
             "config-opts": ["--buildtype=release"],
             "sources": [{
                     "type": "archive",
-                    "url": "https://github.com/donadigo/appeditor/archive/1.0.0.tar.gz",
-                    "sha256": "ae89ddff3c65c0445c609af38475a563c3f909290efed1bf478fe0ee9ab1fced"
-                },
-                {
-                    "type": "patch",
-                    "path": "glib-fix.patch"
+                    "url": "https://github.com/donadigo/appeditor/archive/1.1.0.tar.gz",
+                    "sha256": "204874da816e4175c5130171bce297685f5433686e8d9be3881a2db7e68ab54a"
                 },
                 {
                     "type": "patch",
