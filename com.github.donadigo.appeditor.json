@@ -1,9 +1,9 @@
 {
     "app-id": "com.github.donadigo.appeditor",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.28",
-    "base":"io.elementary.Loki.BaseApp",
-    "base-version": "stable",
+    "runtime-version": "3.30",
+    "base":"io.elementary.BaseApp",
+    "base-version": "juno",
     "sdk": "org.gnome.Sdk",
     "command": "appeditor-wrapper",
     "finish-args": [
