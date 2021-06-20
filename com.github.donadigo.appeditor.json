@@ -13,6 +13,7 @@
         /* Wayland */
         "--socket=wayland",
         "--filesystem=host:ro",
+        "--filesystem=xdg-data/applications:ro",
         "--filesystem=xdg-data/applications:create",
         /* dconf */
         "--metadata=X-DConf=migrate-path=/com/github/donadigo/appeditor/"
