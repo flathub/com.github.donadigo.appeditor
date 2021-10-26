@@ -49,7 +49,7 @@
                 }
             ],
             "post-install": [
-                "sed -i s:Exec=data/com.github.donadigo.appeditor:Exec=/app/bin/appeditor-wrapper: /app/share/applications/com.github.donadigo.appeditor.desktop"
+                "desktop-file-edit --set-key=Exec --set-value=/app/bin/appeditor-wrapper /app/share/applications/com.github.donadigo.appeditor.desktop"
             ]
         }
     ]
