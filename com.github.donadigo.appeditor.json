@@ -1,15 +1,15 @@
 {
     "app-id": "com.github.donadigo.appeditor",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "40",
+    "runtime-version": "41",
     "base":"io.elementary.BaseApp",
-    "base-version": "juno-20.08",
+    "base-version": "juno-21.08",
     "sdk": "org.gnome.Sdk",
     "command": "appeditor-wrapper",
     "finish-args": [
         /* X11 + XShm */
         "--share=ipc",
-        "--socket=x11",
+        "--socket=fallback-x11",
         /* Wayland */
         "--socket=wayland",
         "--filesystem=host:ro",
@@ -18,6 +18,23 @@
         "--metadata=X-DConf=migrate-path=/com/github/donadigo/appeditor/"
     ],
     "modules": [
+        {
+            "name": "glib",
+            "buildsystem": "meson",
+            "config-opts": [
+              "-Dtests=false",
+              "-Dselinux=disabled",
+              "-Dinternal_pcre=false"
+            ],
+            "sources": [
+              {
+                "type": "archive",
+                "url": "https://download.gnome.org/sources/glib/2.70/glib-2.70.0.tar.xz",
+                "sha256": "200d7df811c5ba634afbf109f14bb40ba7fde670e89389885da14e27c0840742"
+              },
+              { "type": "patch", "path": "glib-appinfo.patch" }
+            ]
+        },
         {
             "name": "wrapper",
             "buildsystem": "simple",
@@ -28,8 +45,7 @@
                 "type": "script",
                 "dest-filename": "appeditor-wrapper",
                 "commands": [
-                    "export PATH=$PATH:/run/host/usr/bin",
-                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share",
+                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share",
                     "com.github.donadigo.appeditor"
                 ]
             }]
