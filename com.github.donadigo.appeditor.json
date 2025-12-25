@@ -1,10 +1,10 @@
 {
     "app-id": "com.github.donadigo.appeditor",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "40",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "23.08",
     "base":"io.elementary.BaseApp",
-    "base-version": "juno-20.08",
-    "sdk": "org.gnome.Sdk",
+    "base-version": "juno-23.08",
+    "sdk": "org.freedesktop.Sdk",
     "command": "appeditor-wrapper",
     "finish-args": [
         /* X11 + XShm */
@@ -19,6 +19,25 @@
     ],
     "modules": [
         {
+            "name": "glib",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dtests=false",
+                "-Dselinux=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/glib/2.76/glib-2.76.3.tar.xz",
+                    "sha256": "c0be444e403d7c3184d1f394f89f0b644710b5e9331b54fa4e8b5037813ad32a"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/glib-appinfo.patch"
+                }
+            ]
+        },
+        {
             "name": "wrapper",
             "buildsystem": "simple",
             "build-commands": [
@@ -29,7 +48,7 @@
                 "dest-filename": "appeditor-wrapper",
                 "commands": [
                     "export PATH=$PATH:/run/host/usr/bin",
-                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share",
+                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share",
                     "com.github.donadigo.appeditor"
                 ]
             }]
@@ -37,15 +56,15 @@
         {
             "name": "appeditor",
             "buildsystem": "meson",
-            "config-opts": ["--buildtype=release"],
-            "sources": [{
-                    "type": "archive",
-                    "url": "https://github.com/donadigo/appeditor/archive/1.1.1.tar.gz",
-                    "sha256": "f3c63d4fe049fe7d827ddd83cf50cc9c73a168f41985030aa6e30f8af1801b65"
-                },
+            "config-opts": [
+                "--buildtype=release",
+                "-Dflatpak=true"
+            ],
+            "sources": [
                 {
-                    "type": "patch",
-                    "path": "elementary-theme.patch"
+                    "type": "git",
+                    "url": "https://github.com/donadigo/appeditor.git",
+                    "tag": "1.1.5"
                 }
             ],
             "post-install": [
