@@ -1,7 +1,7 @@
 {
     "app-id": "com.github.donadigo.appeditor",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "23.08",
+    "runtime-version": "25.08",
     "base":"io.elementary.BaseApp",
     "base-version": "juno-23.08",
     "sdk": "org.freedesktop.Sdk",
