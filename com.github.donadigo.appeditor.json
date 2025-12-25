@@ -68,7 +68,10 @@
                 }
             ],
             "post-install": [
-                "desktop-file-edit --set-key=Exec --set-value=/app/bin/appeditor-wrapper /app/share/applications/com.github.donadigo.appeditor.desktop"
+                "desktop-file-edit --set-key=Exec --set-value=/app/bin/appeditor-wrapper /app/share/applications/com.github.donadigo.appeditor.desktop",
+                "mkdir -p /app/share/icons/hicolor/scalable/apps",
+                "mv /app/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg",
+                "find /app/share/icons/hicolor -type f -not -path \"*scalable*\" -not -path \"*actions*\" -name \"*.svg\" -delete"
             ]
         }
     ]
