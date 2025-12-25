@@ -3,7 +3,7 @@
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "25.08",
     "base":"io.elementary.BaseApp",
-    "base-version": "juno-23.08",
+    "base-version": "circe-25.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "appeditor-wrapper",
     "finish-args": [
