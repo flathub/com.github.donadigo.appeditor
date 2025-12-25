@@ -79,6 +79,10 @@
                     "type": "git",
                     "url": "https://github.com/donadigo/appeditor.git",
                     "tag": "1.1.5"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/fix-appdata.patch"
                 }
             ],
             "post-install": [
