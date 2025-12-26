@@ -67,7 +67,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/donadigo/appeditor/archive/refs/tags/1.1.5.tar.gz",
+                    "url": "https://github.com/donadigo/appeditor/archive/1.1.5.tar.gz",
                     "sha256": "14c27eb172c8f518d6443af6fb43120935c592443582c0b3b25c802022e00c5d"
                 },
                 {
