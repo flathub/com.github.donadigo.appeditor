@@ -1,14 +1,14 @@
-From b4c13c97e06153954bae46041fe5609f3de57892 Mon Sep 17 00:00:00 2001
+From 9fd1ad9d5c730bdb990673ec09e56e99844c518f Mon Sep 17 00:00:00 2001
 From: Sabri Ünal <yakushabb@gmail.com>
-Date: Thu, 25 Dec 2025 20:12:13 +0300
+Date: Fri, 26 Dec 2025 18:58:07 +0300
 Subject: [PATCH] Fix appdata papercuts
 
 ---
- data/com.github.donadigo.appeditor.appdata.xml.in | 42 ++++++++++--------------------------------
- 1 file changed, 10 insertions(+), 32 deletions(-)
+ data/com.github.donadigo.appeditor.appdata.xml.in | 46 ++++++++++++++--------------------------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
 
 diff --git a/data/com.github.donadigo.appeditor.appdata.xml.in b/data/com.github.donadigo.appeditor.appdata.xml.in
-index 94e6c5c..9e60325 100644
+index 94e6c5c..c64c06c 100644
 --- a/data/com.github.donadigo.appeditor.appdata.xml.in
 +++ b/data/com.github.donadigo.appeditor.appdata.xml.in
 @@ -1,7 +1,7 @@
@@ -21,7 +21,7 @@ index 94e6c5c..9e60325 100644
    <metadata_license>CC0-1.0</metadata_license>
    <project_license>GPL-3.0+</project_license>
    <name>AppEditor</name>
-@@ -18,12 +18,18 @@
+@@ -18,16 +18,26 @@
      </ul>
    </description>
    <provides>
@@ -32,6 +32,9 @@ index 94e6c5c..9e60325 100644
 +		<id>com.github.donadigo.appeditor.desktop</id>
 +	</replaces>
    <developer_name>Adam Bieńkowski</developer_name>
++  <developer id="com.donadigo">
++    <name>Adam Bieńkowski</name>
++  </developer>
    <url type="homepage">https://github.com/donadigo/appeditor</url>
    <url type="bugtracker">https://github.com/donadigo/appeditor/issues</url>
 +  <url type="vcs-browser">https://github.com/donadigo/appeditor</url>
@@ -40,7 +43,12 @@ index 94e6c5c..9e60325 100644
    <update_contact>donadigos159@gmail.com</update_contact>
    <screenshots>
      <screenshot type="default">
-@@ -159,40 +165,12 @@
+       <image>https://raw.githubusercontent.com/donadigo/appeditor/master/Screenshot.png</image>
++      <caption>Main window</caption>
+     </screenshot>
+   </screenshots>
+   <releases>
+@@ -159,40 +169,12 @@
      </release>
    </releases>
  
