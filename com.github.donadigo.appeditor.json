@@ -1,23 +1,46 @@
 {
     "app-id": "com.github.donadigo.appeditor",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "40",
-    "base":"io.elementary.BaseApp",
-    "base-version": "juno-20.08",
-    "sdk": "org.gnome.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "25.08",
+    "base": "io.elementary.BaseApp",
+    "base-version": "circe-25.08",
+    "sdk": "org.freedesktop.Sdk",
     "command": "appeditor-wrapper",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
+    "build-options": {
+        "prepend-path": "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path": "/usr/lib/sdk/vala/lib"
+    },
     "finish-args": [
-        /* X11 + XShm */
         "--share=ipc",
-        "--socket=x11",
-        /* Wayland */
+        "--socket=fallback-x11",
         "--socket=wayland",
         "--filesystem=host:ro",
         "--filesystem=xdg-data/applications:create",
-        /* dconf */
         "--metadata=X-DConf=migrate-path=/com/github/donadigo/appeditor/"
     ],
     "modules": [
+        {
+            "name": "glib",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dtests=false",
+                "-Dselinux=disabled"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/glib/2.84/glib-2.84.4.tar.xz",
+                    "sha256": "8a9ea10943c36fc117e253f80c91e477b673525ae45762942858aef57631bb90"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/glib-appinfo.patch"
+                }
+            ]
+        },
         {
             "name": "wrapper",
             "buildsystem": "simple",
@@ -29,7 +52,7 @@
                 "dest-filename": "appeditor-wrapper",
                 "commands": [
                     "export PATH=$PATH:/run/host/usr/bin",
-                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share",
+                    "export XDG_DATA_DIRS=$XDG_DATA_DIRS:/run/host/usr/share:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share",
                     "com.github.donadigo.appeditor"
                 ]
             }]
@@ -37,19 +60,26 @@
         {
             "name": "appeditor",
             "buildsystem": "meson",
-            "config-opts": ["--buildtype=release"],
-            "sources": [{
+            "config-opts": [
+                "--buildtype=release",
+                "-Dflatpak=true"
+            ],
+            "sources": [
+                {
                     "type": "archive",
-                    "url": "https://github.com/donadigo/appeditor/archive/1.1.1.tar.gz",
-                    "sha256": "f3c63d4fe049fe7d827ddd83cf50cc9c73a168f41985030aa6e30f8af1801b65"
+                    "url": "https://github.com/donadigo/appeditor/archive/1.1.5.tar.gz",
+                    "sha256": "14c27eb172c8f518d6443af6fb43120935c592443582c0b3b25c802022e00c5d"
                 },
                 {
                     "type": "patch",
-                    "path": "elementary-theme.patch"
+                    "path": "patches/fix-appdata.patch"
                 }
             ],
             "post-install": [
-                "desktop-file-edit --set-key=Exec --set-value=/app/bin/appeditor-wrapper /app/share/applications/com.github.donadigo.appeditor.desktop"
+                "desktop-file-edit --set-key=Exec --set-value=/app/bin/appeditor-wrapper /app/share/applications/com.github.donadigo.appeditor.desktop",
+                "mkdir -p /app/share/icons/hicolor/scalable/apps",
+                "mv /app/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg",
+                "find /app/share/icons/hicolor -type f -not -path \"*scalable*\" -not -path \"*actions*\" -name \"*.svg\" -delete"
             ]
         }
     ]

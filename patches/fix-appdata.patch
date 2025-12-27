@@ -1,0 +1,97 @@
+From 9fd1ad9d5c730bdb990673ec09e56e99844c518f Mon Sep 17 00:00:00 2001
+From: Sabri Ünal <yakushabb@gmail.com>
+Date: Fri, 26 Dec 2025 18:58:07 +0300
+Subject: [PATCH] Fix appdata papercuts
+
+---
+ data/com.github.donadigo.appeditor.appdata.xml.in | 46 ++++++++++++++--------------------------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
+
+diff --git a/data/com.github.donadigo.appeditor.appdata.xml.in b/data/com.github.donadigo.appeditor.appdata.xml.in
+index 94e6c5c..c64c06c 100644
+--- a/data/com.github.donadigo.appeditor.appdata.xml.in
++++ b/data/com.github.donadigo.appeditor.appdata.xml.in
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <!-- Copyright (c) 2017 Adam Bieńkowski (https://github.com/donadigo/appeditor) -->
+-<component type="desktop">
+-  <id>com.github.donadigo.appeditor.desktop</id>
++<component type="desktop-application">
++  <id>com.github.donadigo.appeditor</id>
+   <metadata_license>CC0-1.0</metadata_license>
+   <project_license>GPL-3.0+</project_license>
+   <name>AppEditor</name>
+@@ -18,16 +18,26 @@
+     </ul>
+   </description>
+   <provides>
++		<id>com.github.donadigo.appeditor.desktop</id>
+     <binary>com.github.donadigo.appeditor</binary>
+   </provides>
++	<replaces>
++		<id>com.github.donadigo.appeditor.desktop</id>
++	</replaces>
+   <developer_name>Adam Bieńkowski</developer_name>
++  <developer id="com.donadigo">
++    <name>Adam Bieńkowski</name>
++  </developer>
+   <url type="homepage">https://github.com/donadigo/appeditor</url>
+   <url type="bugtracker">https://github.com/donadigo/appeditor/issues</url>
++  <url type="vcs-browser">https://github.com/donadigo/appeditor</url>
+   <url type="help">https://github.com/donadigo/appeditor</url>
++	<launchable type="desktop-id">com.github.donadigo.appeditor.desktop</launchable>
+   <update_contact>donadigos159@gmail.com</update_contact>
+   <screenshots>
+     <screenshot type="default">
+       <image>https://raw.githubusercontent.com/donadigo/appeditor/master/Screenshot.png</image>
++      <caption>Main window</caption>
+     </screenshot>
+   </screenshots>
+   <releases>
+@@ -159,40 +169,12 @@
+     </release>
+   </releases>
+ 
+-  <content_rating type="oars-1.1">
+-    <content_attribute id="violence-cartoon">none</content_attribute>
+-    <content_attribute id="violence-fantasy">none</content_attribute>
+-    <content_attribute id="violence-realistic">none</content_attribute>
+-    <content_attribute id="violence-bloodshed">none</content_attribute>
+-    <content_attribute id="violence-sexual">none</content_attribute>
+-    <content_attribute id="violence-desecration">none</content_attribute>
+-    <content_attribute id="violence-slavery">none</content_attribute>
+-    <content_attribute id="violence-worship">none</content_attribute>
+-    <content_attribute id="drugs-alcohol">none</content_attribute>
+-    <content_attribute id="drugs-narcotics">none</content_attribute>
+-    <content_attribute id="drugs-tobacco">none</content_attribute>
+-    <content_attribute id="sex-nudity">none</content_attribute>
+-    <content_attribute id="sex-themes">none</content_attribute>
+-    <content_attribute id="sex-homosexuality">none</content_attribute>
+-    <content_attribute id="sex-prostitution">none</content_attribute>
+-    <content_attribute id="sex-adultery">none</content_attribute>
+-    <content_attribute id="sex-appearance">none</content_attribute>
+-    <content_attribute id="language-profanity">none</content_attribute>
+-    <content_attribute id="language-humor">none</content_attribute>
+-    <content_attribute id="language-discrimination">none</content_attribute>
+-    <content_attribute id="social-chat">none</content_attribute>
+-    <content_attribute id="social-info">none</content_attribute>
+-    <content_attribute id="social-audio">none</content_attribute>
+-    <content_attribute id="social-location">none</content_attribute>
+-    <content_attribute id="social-contacts">none</content_attribute>
+-    <content_attribute id="money-purchasing">none</content_attribute>
+-    <content_attribute id="money-gambling">none</content_attribute>
+-  </content_rating>
++  <content_rating type="oars-1.1"/>
+ 
+   <custom>
+     <value key="x-appcenter-stripe">pk_live_51GYBHwFaMxdOp98jXKA6CKhwcWWa77h7XLR5ZvyZBQ4l7G2S1E40rdhPlHHLZOWM5a70KthJmqEJjtvNX6XwiUpe00TsRKaWfU</value>
+     <value key="x-appcenter-color-primary">#32e3ca</value>
+     <value key="x-appcenter-color-primary-text">#0A332D</value>
+     <value key="x-appcenter-suggested-price">5</value>
+   </custom>
+-</component>
+\ No newline at end of file
++</component>
+--
+libgit2 1.7.2
+
